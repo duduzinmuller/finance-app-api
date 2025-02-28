@@ -1,18 +1,21 @@
 {
-  "name": "finance-app-api",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "Eduardo Muller",
-  "license": "ISC",
-  "type": "module",
-  "description": "",
-  "devDependencies": {
-    "@eslint/js": "^9.21.0",
-    "eslint": "^8.57.1",
-    "globals": "^16.0.0"
-  }
+    "name": "finance-app-api",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "postinstall": "npx husky install"
+    },
+    "keywords": [],
+    "author": "Eduardo Muller",
+    "license": "ISC",
+    "type": "module",
+    "description": "",
+    "devDependencies": {
+        "@eslint/js": "^9.21.0",
+        "eslint": "^8.57.1",
+        "globals": "^16.0.0",
+        "husky": "^8.0.3",
+        "lint-staged": "^15.4.3"
+    }
 }
