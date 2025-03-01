@@ -26,9 +26,9 @@ export class CreateUserController {
                 }
             }
 
-            const passwordIsValid = params.password.length < 6
+            const passwordIsNotValid = params.password.length < 6
 
-            if (passwordIsValid) {
+            if (passwordIsNotValid) {
                 return badRequest({
                     message: 'A senha deve ter no minímo 6 caracteres.',
                 })

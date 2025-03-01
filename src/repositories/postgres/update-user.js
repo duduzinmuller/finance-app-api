@@ -15,7 +15,7 @@ export class PostgresUpdateUserRepository {
         const updateQuery = `
         UPDATE users
         SET ${updateFields.join(', ')}
-        WHERE id = $${updateFields.length}
+        WHERE id = $${updateFields.length + 1}
         RETURNING *
         `
 
