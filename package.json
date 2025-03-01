@@ -5,7 +5,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "postinstall": "npx husky install",
-        "start:dev": "node --watch index.js"
+        "start:dev": "node --watch index.js",
+        "migrations": "node src/db/postgres/migrations/exec.js"
     },
     "keywords": [],
     "author": "Eduardo Muller",
