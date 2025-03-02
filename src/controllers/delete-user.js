@@ -5,11 +5,10 @@ import {
     serverError,
     userNotFoundResponse,
 } from './helpers/index.js'
-import { DeleteUserUseCase } from '../use-cases/index.js'
 
 export class DeleteUserController {
-    constructor() {
-        this.deleteUserUseCase = new DeleteUserUseCase()
+    constructor(deleteUserUseCase) {
+        this.deleteUserUseCase = deleteUserUseCase
     }
     async execute(httpRequest) {
         try {
