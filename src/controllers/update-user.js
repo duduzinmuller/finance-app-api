@@ -1,4 +1,3 @@
-import { UpdateUserUseCase } from '../use-cases/index.js'
 import { EmailAlreadyInUseError } from '../errors/user.js'
 import {
     invalidPasswordResponse,
@@ -13,8 +12,8 @@ import {
 } from './helpers/index.js'
 
 export class UpdateUserController {
-    constructor() {
-        this.updateUserUseCase = new UpdateUserUseCase()
+    constructor(updateUserUseCase) {
+        this.updateUserUseCase = updateUserUseCase
     }
     async execute(httpRequest) {
         try {
