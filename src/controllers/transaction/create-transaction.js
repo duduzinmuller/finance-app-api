@@ -6,6 +6,7 @@ import {
     invalidIdResponse,
     created,
     validateRequiredFields,
+    requiredFieldsIsMissingResponse,
 } from '../helpers/index.js'
 
 export class CreateTransactionController {
@@ -22,21 +23,13 @@ export class CreateTransactionController {
                 validateRequiredFields(params, requiredFields)
 
             if (!requiredFieldsWereProvided) {
-                return badRequest({
-                    message: `O campo ${missingField} é obrigatório`,
-                })
+                return requiredFieldsIsMissingResponse(missingField)
             }
 
             const userIdIsValid = checkIfIdIsValid(params.user_id)
 
             if (!userIdIsValid) {
                 return invalidIdResponse()
-            }
-
-            if (params.amount <= 0) {
-                return badRequest({
-                    message: 'O valor deve ser maior que 0',
-                })
             }
 
             const amountIsValid = validator.isCurrency(
