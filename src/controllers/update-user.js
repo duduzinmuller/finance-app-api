@@ -1,20 +1,18 @@
+import { UpdateUserUseCase } from '../use-cases/index.js'
 import { EmailAlreadyInUseError } from '../errors/user.js'
 import {
-    invalidPasswordResponse,
-    emailIsAlreadyInUseResponse,
-    invalidIdResponse,
-    checkIfPasswordIsValid,
     checkIfEmailIsValid,
     checkIfIdIsValid,
+    checkIfPasswordIsValid,
+    emailIsAlreadyInUseResponse,
+    invalidIdResponse,
+    invalidPasswordResponse,
     badRequest,
     ok,
     serverError,
 } from './helpers/index.js'
 
 export class UpdateUserController {
-    constructor(updateUserUseCase) {
-        this.updateUserUseCase = updateUserUseCase
-    }
     async execute(httpRequest) {
         try {
             const userId = httpRequest.params.userId
@@ -34,13 +32,13 @@ export class UpdateUserController {
                 'password',
             ]
 
-            const someFieldsNotAllowed = Object.keys(params).some(
+            const someFieldIsNotAllowed = Object.keys(params).some(
                 (field) => !allowedFields.includes(field),
             )
 
-            if (someFieldsNotAllowed) {
+            if (someFieldIsNotAllowed) {
                 return badRequest({
-                    message: `Algum campo fornecido não é permitido.`,
+                    message: 'Some provided field is not allowed.',
                 })
             }
 
@@ -53,23 +51,23 @@ export class UpdateUserController {
             }
 
             if (params.email) {
-                const validIsEmail = checkIfEmailIsValid(params.email)
+                const emailIsValid = checkIfEmailIsValid(params.email)
 
-                if (!validIsEmail) {
+                if (!emailIsValid) {
                     return emailIsAlreadyInUseResponse()
                 }
             }
 
-            const updatedUser = await this.updateUserUseCase.execute(
-                userId,
-                params,
-            )
+            const updateUserUseCase = new UpdateUserUseCase()
+
+            const updatedUser = await updateUserUseCase.execute(userId, params)
 
             return ok(updatedUser)
         } catch (error) {
             if (error instanceof EmailAlreadyInUseError) {
                 return badRequest({ message: error.message })
             }
+
             console.error(error)
             return serverError()
         }

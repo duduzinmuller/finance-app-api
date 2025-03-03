@@ -6,17 +6,17 @@ export class PostgresUpdateUserRepository {
         const updateValues = []
 
         Object.keys(updateUserParams).forEach((key) => {
-            updateFields.push(`${key} = $${updateFields.length + 1}`)
+            updateFields.push(`${key} = $${updateValues.length + 1}`)
             updateValues.push(updateUserParams[key])
         })
 
         updateValues.push(userId)
 
         const updateQuery = `
-        UPDATE users
-        SET ${updateFields.join(', ')}
-        WHERE id = $${updateFields.length + 1}
-        RETURNING *
+            UPDATE users
+            SET ${updateFields.join(', ')} 
+            WHERE id = $${updateValues.length}
+            RETURNING *
         `
 
         const updatedUser = await PostgresHelper.query(
