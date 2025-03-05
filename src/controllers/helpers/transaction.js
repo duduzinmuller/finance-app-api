@@ -1,5 +1,10 @@
 import validator from 'validator'
 import { badRequest } from './http.js'
+import { notFound } from './http.js'
+
+export const transactionNotFoundResponse = () => {
+    return notFound({ message: 'Transação não encontrada.' })
+}
 
 export const checkIfAmountIsValid = (amount) => {
     if (typeof amount !== 'number') {
