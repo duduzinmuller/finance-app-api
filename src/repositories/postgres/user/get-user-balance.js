@@ -42,13 +42,13 @@ export class PostgresGetUserBalanceRepository {
         const _totalExpenses = totalExpenses || 0
         const _totalInvestments = totalInvestments || 0
 
-        const balance = _totalEarnings - _totalExpenses - _totalInvestments
+        const total = _totalEarnings - _totalExpenses - _totalInvestments
 
         return {
-            earnings: _totalEarnings,
-            expenses: _totalExpenses,
-            investments: _totalInvestments,
-            balance,
+            ganhos: _totalEarnings,
+            gastos: _totalExpenses,
+            investimentos: _totalInvestments,
+            total,
         }
     }
 }
