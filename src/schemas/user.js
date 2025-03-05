@@ -39,3 +39,7 @@ export const createUserSchema = z.object({
             message: 'A senha deve ter no mínimo 6 caracteres',
         }),
 })
+
+export const updateUserSchema = createUserSchema.partial().strict({
+    message: 'Os campos não podem ser adicionados',
+})
