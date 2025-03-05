@@ -11,3 +11,24 @@ export class UserNotFoundError extends Error {
         this.name = 'UserNotFoundError'
     }
 }
+
+export class ForbiddenError extends Error {
+    constructor() {
+        super('Forbidden')
+        this.name = 'ForbiddenError'
+    }
+}
+
+export class UnauthorizedError extends Error {
+    constructor() {
+        super('Unauthorized')
+        this.name = 'UnauthorizedError'
+    }
+}
+
+export class TransactionNotFoundError extends Error {
+    constructor(transactionId) {
+        super(`Transaction with id ${transactionId} was not found.`)
+        this.name = 'TransactionNotFoundError'
+    }
+}
