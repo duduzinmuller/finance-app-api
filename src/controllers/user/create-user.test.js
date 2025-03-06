@@ -37,9 +37,29 @@ describe('Create User Controller', () => {
 
         const httpRequest = {
             body: {
-                first_name: 'Dudu',
                 last_name: 'Muller',
                 email: 'dudu@fm.com',
+                password: '3123213',
+            },
+        }
+
+        const result = await createUserController.execute(httpRequest)
+        //assert
+
+        expect(result.statusCode).toBe(400)
+    })
+
+    it('should return 400 if last_name is not provided', async () => {
+        //arrange
+        const createUserUseCase = new CreateUserUseCaseStub()
+        const createUserController = new CreateUserController(createUserUseCase)
+
+        //act
+        const httpRequest = {
+            body: {
+                first_name: 'Dudu',
+                email: 'dudu@fm.com',
+                password: '3123213',
             },
         }
 
