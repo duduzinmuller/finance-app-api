@@ -1,22 +1,24 @@
-import { UpdateUserUseCase } from '../../use-cases/index.js'
-import { EmailAlreadyInUseError } from '../../errors/user.js'
+import { EmailAlreadyInUseError, UserNotFoundError } from '../../errors/user.js'
 import {
     checkIfIdIsValid,
     invalidIdResponse,
     badRequest,
     ok,
     serverError,
+    userNotFoundResponse,
 } from '../helpers/index.js'
 import { updateUserSchema } from '../../schemas/user.js'
 import { ZodError } from 'zod'
 
 export class UpdateUserController {
+    constructor(updateUserUseCase) {
+        this.updateUserUseCase = updateUserUseCase
+    }
     async execute(httpRequest) {
         try {
             const userId = httpRequest.params.userId
 
             const isIdValid = checkIfIdIsValid(userId)
-
             if (!isIdValid) {
                 return invalidIdResponse()
             }
@@ -25,9 +27,10 @@ export class UpdateUserController {
 
             await updateUserSchema.parseAsync(params)
 
-            const updateUserUseCase = new UpdateUserUseCase()
-
-            const updatedUser = await updateUserUseCase.execute(userId, params)
+            const updatedUser = await this.updateUserUseCase.execute(
+                userId,
+                params,
+            )
 
             return ok(updatedUser)
         } catch (error) {
@@ -36,6 +39,10 @@ export class UpdateUserController {
             }
             if (error instanceof EmailAlreadyInUseError) {
                 return badRequest({ message: error.message })
+            }
+
+            if (error instanceof UserNotFoundError) {
+                return userNotFoundResponse()
             }
 
             console.error(error)
