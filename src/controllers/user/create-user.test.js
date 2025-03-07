@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker'
 import { CreateUserController } from './create-user.js'
 
 describe('Create User Controller', () => {
@@ -14,10 +15,12 @@ describe('Create User Controller', () => {
         //act
         const httpRequest = {
             body: {
-                first_name: 'Dudu',
-                last_name: 'Muller',
-                email: 'dudu@fm.com',
-                password: '232e32',
+                first_name: faker.person.firstName(),
+                last_name: faker.person.lastName(),
+                email: faker.internet.email(),
+                password: faker.internet.password({
+                    length: 7,
+                }),
             },
         }
 
@@ -37,9 +40,9 @@ describe('Create User Controller', () => {
 
         const httpRequest = {
             body: {
-                last_name: 'Muller',
-                email: 'dudu@fm.com',
-                password: '3123213',
+                last_name: faker.person.lastName,
+                email: faker.internet.email(),
+                password: faker.internet.password(),
             },
         }
 
@@ -57,9 +60,9 @@ describe('Create User Controller', () => {
         //act
         const httpRequest = {
             body: {
-                first_name: 'Dudu',
-                email: 'dudu@fm.com',
-                password: '3123213',
+                first_name: faker.person.firstName(),
+                email: faker.internet.email(),
+                password: faker.internet.password(),
             },
         }
 
@@ -77,9 +80,9 @@ describe('Create User Controller', () => {
         //act
         const httpRequest = {
             body: {
-                first_name: 'Dudu',
-                last_name: 'Ola',
-                password: '3123213',
+                first_name: faker.person.firstName(),
+                last_name: faker.person.lastName(),
+                password: faker.internet.password(),
             },
         }
         const result = await createUserController.execute(httpRequest)
@@ -95,10 +98,10 @@ describe('Create User Controller', () => {
         //act
         const httpRequest = {
             body: {
-                first_name: 'Dudu',
-                last_name: 'Ola',
-                email: 'edsadsad',
-                password: '3123213',
+                first_name: faker.person.firstName(),
+                last_name: faker.person.lastName(),
+                email: 'invalid_email',
+                password: faker.internet.password(),
             },
         }
 
@@ -115,9 +118,9 @@ describe('Create User Controller', () => {
         //act
         const httpRequest = {
             body: {
-                first_name: 'Dudu',
-                last_name: 'Ola',
-                email: 'edsadsad@gmail.com',
+                first_name: faker.person.firstName(),
+                last_name: faker.person.lastName(),
+                email: faker.internet.email(),
             },
         }
 
@@ -134,10 +137,12 @@ describe('Create User Controller', () => {
         //act
         const httpRequest = {
             body: {
-                first_name: 'Dudu',
-                last_name: 'Ola',
-                email: 'edsadsad@gmail.com',
-                password: '3132',
+                first_name: faker.person.firstName(),
+                last_name: faker.person.lastName(),
+                email: faker.internet.email(),
+                password: faker.internet.password({
+                    length: 5,
+                }),
             },
         }
 
@@ -154,10 +159,12 @@ describe('Create User Controller', () => {
 
         const httpRequest = {
             body: {
-                first_name: 'Dudu',
-                last_name: 'Ola',
-                email: 'edsaad@gmail.com',
-                password: '3132232',
+                first_name: faker.person.firstName(),
+                last_name: faker.person.lastName(),
+                email: faker.internet.email(),
+                password: faker.internet.password({
+                    length: 7,
+                }),
             },
         }
 
