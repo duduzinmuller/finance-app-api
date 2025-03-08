@@ -1,3 +1,4 @@
+import { UserNotFoundError } from '../../errors/user.js'
 import {
     checkIfIdIsValid,
     invalidIdResponse,
@@ -31,7 +32,7 @@ export class GetTransactionsByUserIdController {
             return ok(transactions)
         } catch (error) {
             console.error(error)
-            if (error instanceof userNotFoundResponse) {
+            if (error instanceof UserNotFoundError) {
                 return userNotFoundResponse()
             }
             return serverError()
