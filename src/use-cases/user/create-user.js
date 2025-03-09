@@ -1,11 +1,15 @@
 import { v4 as uuidv4 } from 'uuid'
-import bcrypt from 'bcrypt'
 import { EmailAlreadyInUseError } from '../../errors/user.js'
 
 export class CreateUserUseCase {
-    constructor(createUserRepository, getUserByEmailRepository) {
+    constructor(
+        createUserRepository,
+        getUserByEmailRepository,
+        passwordHasherAdapter,
+    ) {
         this.createUserRepository = createUserRepository
         this.getUserByEmailRepository = getUserByEmailRepository
+        this.passwordHasherAdapter = passwordHasherAdapter
     }
     async execute(createUserParams) {
         const userWithProviderEmail =
@@ -16,10 +20,8 @@ export class CreateUserUseCase {
         }
         const userId = uuidv4()
 
-        const saltRoads = 10
-        const hashedPassword = await bcrypt.hash(
+        const hashedPassword = await this.passwordHasherAdapter.execute(
             createUserParams.password,
-            saltRoads,
         )
 
         const user = {
