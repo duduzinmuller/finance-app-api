@@ -40,6 +40,11 @@ export const createUserSchema = z.object({
         }),
 })
 
-export const updateUserSchema = createUserSchema.partial().strict({
-    message: 'Os campos não podem ser adicionados',
-})
+export const updateUserSchema = createUserSchema
+    .omit({
+        user_id: true,
+    })
+    .partial()
+    .strict({
+        message: 'Os campos não podem ser adicionados',
+    })
