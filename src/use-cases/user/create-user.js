@@ -19,7 +19,7 @@ export class CreateUserUseCase {
         if (userWithProviderEmail) {
             throw new EmailAlreadyInUseError(createUserParams.email)
         }
-        const userId = await this.idGeneratorAdaptor.execute()
+        const userId = this.idGeneratorAdaptor.execute()
 
         const hashedPassword = await this.passwordHasherAdapter.execute(
             createUserParams.password,

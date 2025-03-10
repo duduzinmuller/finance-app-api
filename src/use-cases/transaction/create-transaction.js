@@ -20,7 +20,7 @@ export class CreateTransactionUseCase {
             throw new UserNotFoundError(userId)
         }
 
-        const transactionId = await this.idGeneratorAdapter.execute()
+        const transactionId = this.idGeneratorAdapter.execute()
 
         const transaction = await this.createTransactionRepository.execute({
             ...createTransactionParams,
