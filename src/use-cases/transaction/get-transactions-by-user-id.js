@@ -1,8 +1,9 @@
 import { UserNotFoundError } from '../../errors/user.js'
 
 export class GetTransactionsByUserIdUseCase {
-    constructor(getTransactionsByUserRepository, getUserByIdRepository) {
-        this.getTransactionsByUserRepository = getTransactionsByUserRepository
+    constructor(getTransactionsByUserIdRepository, getUserByIdRepository) {
+        this.getTransactionsByUserIdRepository =
+            getTransactionsByUserIdRepository
         this.getUserByIdRepository = getUserByIdRepository
     }
     async execute(userId) {
@@ -13,7 +14,7 @@ export class GetTransactionsByUserIdUseCase {
         }
 
         const transactions =
-            await this.getTransactionsByUserRepository.execute(userId)
+            await this.getTransactionsByUserIdRepository.execute(userId)
 
         return transactions
     }
