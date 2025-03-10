@@ -22,7 +22,7 @@ describe('Create User Use Case', () => {
     }
 
     class IdGeneratorAdapterStub {
-        async execute() {
+        execute() {
             return 'generated_id'
         }
     }
