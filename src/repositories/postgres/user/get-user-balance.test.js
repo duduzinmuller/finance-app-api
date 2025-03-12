@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker'
 import { prisma } from '../../../../prisma/prisma.js'
 import { user as fakeUser } from '../../../tests/index.js'
 import { PostgresGetUserBalanceRepository } from './get-user-balance.js'
+import { TransactionType } from '@prisma/client'
 
 describe('PostgresGetUserBalanceRepository', () => {
     it('should get user balance on db', async () => {
@@ -59,7 +60,7 @@ describe('PostgresGetUserBalanceRepository', () => {
         const result = await sut.execute(user.id)
 
         expect(result.ganhos.toString()).toBe('10000')
-        expect(result.gastos.toString()).toBe('2000')
+        expect(result.despesas.toString()).toBe('2000')
         expect(result.investimentos.toString()).toBe('6000')
         expect(result.total.toString()).toBe('2000')
     })
@@ -74,7 +75,7 @@ describe('PostgresGetUserBalanceRepository', () => {
         expect(prismaSpy).toHaveBeenCalledWith({
             where: {
                 user_id: fakeUser.id,
-                type: 'EXPENSE',
+                type: TransactionType.EXPENSE,
             },
             _sum: {
                 amount: true,
@@ -84,7 +85,7 @@ describe('PostgresGetUserBalanceRepository', () => {
         expect(prismaSpy).toHaveBeenCalledWith({
             where: {
                 user_id: fakeUser.id,
-                type: 'EARNING',
+                type: TransactionType.EARNING,
             },
             _sum: {
                 amount: true,
@@ -94,7 +95,7 @@ describe('PostgresGetUserBalanceRepository', () => {
         expect(prismaSpy).toHaveBeenCalledWith({
             where: {
                 user_id: fakeUser.id,
-                type: 'INVESTMENT',
+                type: TransactionType.INVESTMENT,
             },
             _sum: {
                 amount: true,
