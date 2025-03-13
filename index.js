@@ -2,7 +2,7 @@ import 'dotenv/config.js'
 import express from 'express'
 import { userRouter, transactionRouter } from './src/routes/index.js'
 
-const app = express()
+export const app = express()
 
 app.use(express.json())
 
