@@ -90,9 +90,17 @@ describe('Transaction Routes E2E Tests', () => {
         expect(response.status).toBe(404)
     })
 
-    it('DELETE/api/transactions/:transactionId should return 404 when updating a non-existing transaction', async () => {
+    it('DELETE /api/transactions/:transactionId should return 404 when updating a non-existing transaction', async () => {
         const response = await request(app).delete(
             `/api/transactions/${transaction.id}`,
+        )
+
+        expect(response.status).toBe(404)
+    })
+
+    it('GET /api/transaction?userId should return 404 when fetching from a non-existing transaction', async () => {
+        const response = await request(app).get(
+            `/api/transactions?userId=${transaction.user_id}`,
         )
 
         expect(response.status).toBe(404)
