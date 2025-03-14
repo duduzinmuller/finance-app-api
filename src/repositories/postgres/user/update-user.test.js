@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker'
 import { prisma } from '../../../../prisma/prisma.js'
 import { user as fakeUser } from '../../../tests/index.js'
 import { PostgresUpdateUserRepository } from './update-user.js'
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client'
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library.js'
 import { UserNotFoundError } from '../../../errors/user.js'
 
 const updateUserParams = {
