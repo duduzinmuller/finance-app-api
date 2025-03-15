@@ -23,7 +23,7 @@ export const ok = (body) => ({
 export const unauthorized = () => ({
     statusCode: 401,
     body: {
-        message: 'Senha inválida',
+        message: 'Unauthorized',
     },
 })
 
