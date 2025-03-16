@@ -11,20 +11,30 @@ import { auth } from '../middlewares/auth.js'
 
 export const userRouter = Router()
 
-userRouter.get('/:userId', auth, async (request, response) => {
+userRouter.get('/', auth, async (request, response) => {
     const getUserByIdController = makeGetUserByIdController()
 
     console.log('Usuárion autenticado:', request.userId)
 
-    const { statusCode, body } = await getUserByIdController.execute(request)
+    const { statusCode, body } = await getUserByIdController.execute({
+        ...request,
+        params: {
+            userId: request.userId,
+        },
+    })
 
     response.status(statusCode).send(body)
 })
 
-userRouter.get('/:userId/balance', auth, async (request, response) => {
+userRouter.get('/balance', auth, async (request, response) => {
     const getUserBalanceController = makeGetUserBalanceController()
 
-    const { statusCode, body } = await getUserBalanceController.execute(request)
+    const { statusCode, body } = await getUserBalanceController.execute({
+        ...request,
+        params: {
+            userId: request.userId,
+        },
+    })
 
     response.status(statusCode).send(body)
 })
@@ -37,18 +47,28 @@ userRouter.post('/', async (request, response) => {
     response.status(statusCode).send(body)
 })
 
-userRouter.patch('/:userId', auth, async (request, response) => {
+userRouter.patch('/', auth, async (request, response) => {
     const updateUserController = makeUpdateUserController()
 
-    const { statusCode, body } = await updateUserController.execute(request)
+    const { statusCode, body } = await updateUserController.execute({
+        ...request,
+        params: {
+            userId: request.userId,
+        },
+    })
 
     response.status(statusCode).send(body)
 })
 
-userRouter.delete('/:userId', auth, async (request, response) => {
+userRouter.delete('/', auth, async (request, response) => {
     const deleteUserController = makeDeleteUserController()
 
-    const { statusCode, body } = await deleteUserController.execute(request)
+    const { statusCode, body } = await deleteUserController.execute({
+        ...request,
+        params: {
+            userId: request.userId,
+        },
+    })
 
     response.status(statusCode).send(body)
 })
