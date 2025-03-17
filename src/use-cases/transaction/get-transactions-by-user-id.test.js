@@ -76,16 +76,18 @@ describe('GetTransactionByUserIdUseCase', () => {
             'execute',
         )
         const userId = faker.string.uuid()
+        const from = '2025-03-17'
+        const to = '2025-03-18'
 
         //act
-        await sut.execute(userId)
+        await sut.execute(userId, from, to)
 
         //assert
-        expect(executeSpy).toHaveBeenCalledWith(userId)
+        expect(executeSpy).toHaveBeenCalledWith(userId, from, to)
     })
 
     it('should throw if GetUserByIdRepository throws', async () => {
-        //arrange
+        //arrangecle
         const { sut, getUserByIdRepository } = makeSut()
         import.meta.jest
             .spyOn(getUserByIdRepository, 'execute')
