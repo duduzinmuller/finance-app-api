@@ -4,6 +4,7 @@ import {
     GetUserBalanceController,
     GetUserByIdController,
     LoginUserController,
+    RefreshTokenController,
     UpdateUserController,
 } from '../../controllers/index.js'
 import {
@@ -12,6 +13,7 @@ import {
     GetUserBalanceUseCase,
     GetUserByIdUseCase,
     LoginUserUseCase,
+    RefreshTokenUseCase,
     UpdateUserUseCase,
 } from '../../use-cases/index.js'
 import {
@@ -27,6 +29,7 @@ import {
     PasswordHasherAdapter,
     PasswordComparatorAdapter,
     TokensGeneratorAdapter,
+    TokensVerifierAdapter,
 } from '../../adapters/index.js'
 
 export const makeGetUserByIdController = () => {
@@ -116,4 +119,18 @@ export const makeLoginUserController = () => {
     const loginUserController = new LoginUserController(loginUserUseCase)
 
     return loginUserController
+}
+
+export const makeRefreshTokenController = () => {
+    const tokensGeneratorAdapter = new TokensGeneratorAdapter()
+    const tokensVerifierAdapter = new TokensVerifierAdapter()
+    const refreshTokenUseCase = new RefreshTokenUseCase(
+        tokensGeneratorAdapter,
+        tokensVerifierAdapter,
+    )
+    const refreshTokenController = new RefreshTokenController(
+        refreshTokenUseCase,
+    )
+
+    return refreshTokenController
 }
