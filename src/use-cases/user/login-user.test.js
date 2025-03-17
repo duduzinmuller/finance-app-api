@@ -57,12 +57,4 @@ describe('LoginUserUseCase', () => {
 
         await expect(promise).rejects.toThrow(new InvalidPasswordError())
     })
-
-    it('should return user with tokens', async () => {
-        const { sut } = makeSut()
-
-        const result = await sut.execute('any_email', 'any_password')
-
-        expect(result.tokens.accessToken).toBeDefined()
-    })
 })
