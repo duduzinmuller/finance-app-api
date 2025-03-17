@@ -6,33 +6,50 @@ import {
     makeGetTransactionsByUserIdController,
     makeUpdateTransactionController,
 } from '../factories/controllers/transaction.js'
+import { auth } from '../middlewares/auth.js'
 
 export const transactionRouter = Router()
 
-transactionRouter.get('/', async (request, response) => {
+transactionRouter.get('/', auth, async (request, response) => {
     const getTransactionsByUserIdController =
         makeGetTransactionsByUserIdController()
 
     const { statusCode, body } =
-        await getTransactionsByUserIdController.execute(request)
+        await getTransactionsByUserIdController.execute({
+            ...request,
+            query: {
+                ...request.query,
+                userId: request.userId,
+            },
+        })
 
     response.status(statusCode).send(body)
 })
 
-transactionRouter.post('/', async (request, response) => {
+transactionRouter.post('/', auth, async (request, response) => {
     const createTransactionController = makeCreateTransactionController()
 
-    const { statusCode, body } =
-        await createTransactionController.execute(request)
+    const { statusCode, body } = await createTransactionController.execute({
+        ...request,
+        body: {
+            ...request.body,
+            user_id: request.userId,
+        },
+    })
 
     response.status(statusCode).send(body)
 })
 
-transactionRouter.patch('/:transactionId', async (request, response) => {
+transactionRouter.patch('/:transactionId', auth, async (request, response) => {
     const updateTransactionController = makeUpdateTransactionController()
 
-    const { statusCode, body } =
-        await updateTransactionController.execute(request)
+    const { statusCode, body } = await updateTransactionController.execute({
+        ...request,
+        body: {
+            ...request.body,
+            user_id: request.userId,
+        },
+    })
 
     response.status(statusCode).send(body)
 })

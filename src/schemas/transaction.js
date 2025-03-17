@@ -52,6 +52,3 @@ export const updateTransactionSchema = createTransactionSchema
         user_id: true,
     })
     .partial()
-    .strict({
-        message: 'Os campos não podem ser adicionados',
-    })
