@@ -277,7 +277,7 @@
                 ]
             }
         },
-        "/api/transactions": {
+        "/api/transactions/me": {
             "post": {
                 "summary": "Create a new transaction for the authenticated user",
                 "tags": ["Transaction"],
@@ -377,9 +377,9 @@
                 ]
             }
         },
-        "/api/transactions/{transactionId}": {
+        "/api/transactions/me/{transactionId}": {
             "patch": {
-                "summary": "Update a transaction",
+                "summary": "Update transaction by Id of the authenticated user",
                 "tags": ["Transaction"],
                 "parameters": [
                     {
@@ -426,7 +426,7 @@
                 ]
             },
             "delete": {
-                "summary": "Delete a transaction",
+                "summary": "Delete transaction by Id of the authenticated user",
                 "tags": ["Transaction"],
                 "parameters": [
                     {
