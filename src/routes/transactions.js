@@ -10,7 +10,7 @@ import { auth } from '../middlewares/auth.js'
 
 export const transactionRouter = Router()
 
-transactionRouter.get('/', auth, async (request, response) => {
+transactionRouter.get('/me', auth, async (request, response) => {
     const getTransactionsByUserIdController =
         makeGetTransactionsByUserIdController()
 
@@ -28,7 +28,7 @@ transactionRouter.get('/', auth, async (request, response) => {
     response.status(statusCode).send(body)
 })
 
-transactionRouter.post('/', auth, async (request, response) => {
+transactionRouter.post('/me', auth, async (request, response) => {
     const createTransactionController = makeCreateTransactionController()
 
     const { statusCode, body } = await createTransactionController.execute({
@@ -42,29 +42,37 @@ transactionRouter.post('/', auth, async (request, response) => {
     response.status(statusCode).send(body)
 })
 
-transactionRouter.patch('/:transactionId', auth, async (request, response) => {
-    const updateTransactionController = makeUpdateTransactionController()
+transactionRouter.patch(
+    '/me/:transactionId',
+    auth,
+    async (request, response) => {
+        const updateTransactionController = makeUpdateTransactionController()
 
-    const { statusCode, body } = await updateTransactionController.execute({
-        ...request,
-        body: {
-            ...request.body,
-            user_id: request.userId,
-        },
-    })
+        const { statusCode, body } = await updateTransactionController.execute({
+            ...request,
+            body: {
+                ...request.body,
+                user_id: request.userId,
+            },
+        })
 
-    response.status(statusCode).send(body)
-})
+        response.status(statusCode).send(body)
+    },
+)
 
-transactionRouter.delete('/:transactionId', auth, async (request, response) => {
-    const deleteTransactionController = makeDeleteTransactionController()
+transactionRouter.delete(
+    '/me/:transactionId',
+    auth,
+    async (request, response) => {
+        const deleteTransactionController = makeDeleteTransactionController()
 
-    const { statusCode, body } = await deleteTransactionController.execute({
-        params: {
-            transactionId: request.params.transactionId,
-            user_id: request.userId,
-        },
-    })
+        const { statusCode, body } = await deleteTransactionController.execute({
+            params: {
+                transactionId: request.params.transactionId,
+                user_id: request.userId,
+            },
+        })
 
-    response.status(statusCode).send(body)
-})
+        response.status(statusCode).send(body)
+    },
+)
