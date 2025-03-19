@@ -65,7 +65,7 @@ describe('PostgresGetUserBalanceRepository', () => {
         expect(result.ganhos.toString()).toBe('10000')
         expect(result.despesas.toString()).toBe('2000')
         expect(result.investimentos.toString()).toBe('6000')
-        expect(result.total.toString()).toBe('2000')
+        expect(result.saldo.toString()).toBe('2000')
     })
 
     it('should call Prisma with correct params', async () => {
