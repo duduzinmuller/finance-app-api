@@ -4,6 +4,13 @@ import { dirname, join } from 'path'
 import { userRouter, transactionRouter } from './routes/index.js'
 import swaggerUi from 'swagger-ui-express'
 import fs from 'fs'
+import cors from 'cors'
+
+app.use(cors, {
+    origin: '*',
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+})
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
