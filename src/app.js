@@ -11,13 +11,15 @@ const __dirname = dirname(__filename)
 
 const app = express()
 
-app.use(
-    cors({
-        origin: '*',
-        methods: ['GET', 'POST', 'PATCH', 'DELETE'],
-        allowedHeaders: ['Content-Type', 'Authorization'],
-    }),
-)
+if (process.env.NODE_ENV !== 'test') {
+    app.use(
+        cors({
+            origin: '*',
+            methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+            allowedHeaders: ['Content-Type', 'Authorization'],
+        }),
+    )
+}
 
 app.use(express.json())
 
